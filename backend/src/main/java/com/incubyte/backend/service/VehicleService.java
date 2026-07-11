@@ -8,4 +8,5 @@ public interface VehicleService {
     List<Vehicle> getAllVehicles();
     Vehicle createVehicle(VehicleRequest request);
     void deleteVehicle(Long id);
+    Vehicle updateVehicle(Long id, VehicleRequest request);
 }

@@ -35,4 +35,16 @@ public class VehicleServiceImpl implements VehicleService {
     public void deleteVehicle(Long id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public Vehicle updateVehicle(Long id, VehicleRequest request) {
+        Vehicle vehicle = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicle not found with id: " + id));
+        vehicle.setMake(request.getMake());
+        vehicle.setModel(request.getModel());
+        vehicle.setCategory(request.getCategory());
+        vehicle.setPrice(request.getPrice());
+        vehicle.setQuantity(request.getQuantity());
+        return repository.save(vehicle);
+    }
 }
