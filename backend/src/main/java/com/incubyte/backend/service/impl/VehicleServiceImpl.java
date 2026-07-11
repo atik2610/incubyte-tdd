@@ -30,4 +30,9 @@ public class VehicleServiceImpl implements VehicleService {
         vehicle.setQuantity(request.getQuantity());
         return repository.save(vehicle);
     }
+
+    @Override
+    public void deleteVehicle(Long id) {
+        repository.deleteById(id);
+    }
 }
