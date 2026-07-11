@@ -21,30 +21,36 @@ function Register() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
+    <div className="page">
+      <div className="card auth-card">
+        <h2>Register</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+        <p className="subtitle">
+          Create a new account.
+        </p>
 
-        <br /><br />
+        <form onSubmit={handleSubmit}>
+          <input
+            className="input"
+            type="text"
+            placeholder="Username"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <input
+            className="input"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <br /><br />
-
-        <button type="submit">Register</button>
-      </form>
+          <button className="btn" type="submit">
+            Register
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

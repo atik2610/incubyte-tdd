@@ -24,30 +24,36 @@ function Login() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="page">
+      <div className="card auth-card">
+        <h2>Login</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+        <p className="subtitle">
+          Welcome back! Please login.
+        </p>
 
-        <br /><br />
+        <form onSubmit={handleSubmit}>
+          <input
+            className="input"
+            type="text"
+            placeholder="Username"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <input
+            className="input"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <br /><br />
-
-        <button type="submit">Login</button>
-      </form>
+          <button className="btn" type="submit">
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
