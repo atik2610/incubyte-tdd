@@ -1,6 +1,7 @@
 package com.incubyte.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.incubyte.backend.dto.LoginRequest;
 import com.incubyte.backend.dto.RegisterRequest;
 import com.incubyte.backend.repository.UserRepository;
 import com.incubyte.backend.security.JwtFilter;

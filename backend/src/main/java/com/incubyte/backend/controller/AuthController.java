@@ -1,5 +1,7 @@
 package com.incubyte.backend.controller;
 
+import com.incubyte.backend.dto.AuthResponse;
+import com.incubyte.backend.dto.LoginRequest;
 import com.incubyte.backend.dto.RegisterRequest;
 import com.incubyte.backend.entity.User;
 import com.incubyte.backend.repository.UserRepository;
@@ -65,6 +67,36 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok("User Registered Successfully");
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(
+            @RequestBody LoginRequest request
+    ) {
+
+        authenticationManager.authenticate(
+
+                new UsernamePasswordAuthenticationToken(
+
+                        request.getName(),
+
+                        request.getPassword()
+                )
+        );
+
+        UserDetails userDetails =
+                org.springframework.security.core.userdetails.User
+                        .withUsername(request.getName())
+                        .password("")
+                        .authorities("ROLE_USER")
+                        .build();
+
+        String token = jwtUtil.generateToken(userDetails);
+
+        return ResponseEntity.ok(
+                new AuthResponse(token)
+        );
     }
 
 }
