@@ -6,6 +6,7 @@ import com.incubyte.backend.dto.RegisterRequest;
 import com.incubyte.backend.entity.User;
 import com.incubyte.backend.repository.UserRepository;
 import com.incubyte.backend.security.JwtUtil;
+import com.incubyte.backend.service.CustomUserDetailsService;
 
 import org.springframework.http.ResponseEntity;
 
@@ -29,17 +30,21 @@ public class AuthController {
 
     private final JwtUtil jwtUtil;
 
+    private final CustomUserDetailsService userDetailsService;
+
     public AuthController(
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
             AuthenticationManager authenticationManager,
-            JwtUtil jwtUtil
+            JwtUtil jwtUtil,
+                CustomUserDetailsService userDetailsService
     ) {
 
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.userDetailsService = userDetailsService;
     }
 
 
@@ -62,7 +67,9 @@ public class AuthController {
                 passwordEncoder.encode(request.getPassword())
         );
 
-        user.setRole("USER");
+        user.setRole(
+        request.getRole() == null ? "USER" : request.getRole()
+);
 
         userRepository.save(user);
 
@@ -86,11 +93,7 @@ public class AuthController {
         );
 
         UserDetails userDetails =
-                org.springframework.security.core.userdetails.User
-                        .withUsername(request.getName())
-                        .password("")
-                        .authorities("ROLE_USER")
-                        .build();
+        userDetailsService.loadUserByUsername(request.getName());
 
         String token = jwtUtil.generateToken(userDetails);
 
