@@ -1,6 +1,7 @@
 package com.incubyte.backend.controller;
 
 import com.incubyte.backend.dto.RegisterRequest;
+import com.incubyte.backend.dto.VehicleRequest;
 import com.incubyte.backend.security.JwtFilter;
 import com.incubyte.backend.security.JwtUtil;
 import com.incubyte.backend.service.CustomUserDetailsService;
@@ -13,6 +14,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -71,6 +75,32 @@ void shouldCreateVehicleSuccessfully() throws Exception {
                 .andExpect(status().isNoContent());
 
         verify(vehicleService).deleteVehicle(1L);
+    }
+
+    @Test
+    void shouldUpdateVehicleSuccessfully() throws Exception {
+
+        String request = """
+        {
+        "make":"Honda",
+        "model":"City",
+        "category":"Sedan",
+        "price":1500000,
+        "quantity":10
+        }
+        """;
+
+        mockMvc.perform(
+                put("/api/vehicles/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request)
+        )
+        .andExpect(status().isOk());
+
+        verify(vehicleService).updateVehicle(
+                eq(1L),
+                any(VehicleRequest.class)
+        );
     }
     
 }
