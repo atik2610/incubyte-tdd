@@ -1,10 +1,45 @@
 import { useEffect, useState } from "react";
-import { getVehicles,deleteVehicle } from "../api/vehicleApi";
+import {
+    getVehicles,
+    deleteVehicle,
+    updateVehicle
+} from "../api/vehicleApi";
 
 function Vehicles() {
 
     const [vehicles, setVehicles] = useState([]);
-    
+
+    async function handleUpdate(vehicle) {
+
+        const updatedVehicle = {
+            make: prompt("Make", vehicle.make),
+            model: prompt("Model", vehicle.model),
+            category: prompt("Category", vehicle.category),
+            price: Number(prompt("Price", vehicle.price)),
+            quantity: Number(prompt("Quantity", vehicle.quantity))
+        };
+
+        if (
+            updatedVehicle.make === null ||
+            updatedVehicle.model === null ||
+            updatedVehicle.category === null
+        ) {
+            return;
+        }
+
+        try {
+
+            const updated = await updateVehicle(vehicle.id, updatedVehicle);
+
+            setVehicles(prev =>
+                prev.map(v => v.id === vehicle.id ? updated : v)
+            );
+
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
     async function handleDelete(id) {
 
         if (!window.confirm("Delete this vehicle?")) {
@@ -58,6 +93,10 @@ function Vehicles() {
                         <p>Price : ₹{vehicle.price}</p>
 
                         <p>Stock : {vehicle.quantity}</p>
+
+                        <button onClick={() => handleUpdate(vehicle)}>
+                            Edit
+                        </button>
 
                         <button onClick={() => handleDelete(vehicle.id)}>
                             Delete

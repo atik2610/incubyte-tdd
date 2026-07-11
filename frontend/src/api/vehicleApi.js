@@ -50,3 +50,21 @@ export async function deleteVehicle(id) {
         throw new Error(await response.text());
     }
 }
+
+export async function updateVehicle(id, vehicle) {
+
+    const response = await fetch(`${BASE_URL}/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken()}`
+        },
+        body: JSON.stringify(vehicle)
+    });
+
+    if (!response.ok) {
+        throw new Error(await response.text());
+    }
+
+    return response.json();
+}

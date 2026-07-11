@@ -87,3 +87,22 @@ Add navigation links for Vehicles and Add Vehicle.
 Implement Logout directly in App.jsx: if a JWT token exists in localStorage, hide Login/Register and show a Logout button instead. Clicking Logout should remove the token, navigate to /login, and optionally show a success alert. Refactor App.jsx if necessary so useNavigate() works correctly.
 Reuse my existing CSS and component style (page, card, auth-card, btn, input) so the new pages match the current UI.
 Keep the code clean, beginner-friendly, and consistent with my existing project structure."
+
+I have a React application for a Car Dealership Inventory System.
+
+Current setup:
+- I already have getVehicles(), createVehicle(), and deleteVehicle() API functions.
+- I also have updateVehicle(id, vehicle) which sends a PUT request to /api/vehicles/{id}.
+- Vehicles are displayed using useEffect and useState.
+
+Modify my existing Vehicles.jsx page to support editing a vehicle.
+
+Requirements:
+1. Add an Edit button beside each vehicle.
+2. When Edit is clicked, allow the user to modify make, model, category, price, and quantity.
+3. Use the existing updateVehicle(id, vehicle) API function.
+4. After a successful update, immediately update the React state so the page refreshes without reloading.
+5. Handle API errors with alert().
+6. Keep the implementation simple using React hooks (useState/useEffect).
+7. Do not use Redux or external libraries.
+8. Return the complete updated Vehicles.jsx file.
