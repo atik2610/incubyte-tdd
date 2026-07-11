@@ -40,5 +40,24 @@ class VehicleControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+
+    @Test
+void shouldCreateVehicleSuccessfully() throws Exception {
+
+    String request = """
+        {
+          "make":"Toyota",
+          "model":"Corolla",
+          "category":"Sedan",
+          "price":1200000,
+          "quantity":5
+        }
+        """;
+
+    mockMvc.perform(post("/api/vehicles")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(request))
+            .andExpect(status().isCreated());
+}
     
 }
