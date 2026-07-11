@@ -36,3 +36,17 @@ export async function createVehicle(vehicle) {
 
     return response.json();
 }
+
+export async function deleteVehicle(id) {
+
+    const response = await fetch(`${BASE_URL}/${id}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${getToken()}`
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(await response.text());
+    }
+}

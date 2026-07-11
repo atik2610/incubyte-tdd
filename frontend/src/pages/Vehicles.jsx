@@ -1,9 +1,27 @@
 import { useEffect, useState } from "react";
-import { getVehicles } from "../api/vehicleApi";
+import { getVehicles,deleteVehicle } from "../api/vehicleApi";
 
 function Vehicles() {
 
     const [vehicles, setVehicles] = useState([]);
+    
+    async function handleDelete(id) {
+
+        if (!window.confirm("Delete this vehicle?")) {
+            return;
+        }
+
+        try {
+
+            await deleteVehicle(id);
+
+            setVehicles(vehicles.filter(vehicle => vehicle.id !== id));
+
+        } catch (err) {
+
+            alert(err.message);
+        }
+    }
 
     useEffect(() => {
 
@@ -40,6 +58,10 @@ function Vehicles() {
                         <p>Price : ₹{vehicle.price}</p>
 
                         <p>Stock : {vehicle.quantity}</p>
+
+                        <button onClick={() => handleDelete(vehicle.id)}>
+                            Delete
+                        </button>
 
                         <hr />
 
