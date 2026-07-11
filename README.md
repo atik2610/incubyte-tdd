@@ -71,3 +71,19 @@ Please provide:
 Updated JSX with only the required className additions.
 A complete index.css file (or separate CSS files if preferred).
 Ensure the application works exactly as before after adding the CSS.
+
+"Extend my existing React + Spring Boot Car Dealership Inventory System. I already have Login, Register, and Home pages working with JWT authentication stored in localStorage. Now implement the Vehicles feature while keeping the existing project structure and styling.
+
+Requirements:
+
+Create vehicleApi.js with:
+getVehicles() → calls GET /api/vehicles with Authorization: Bearer <token>.
+createVehicle(vehicle) → calls POST /api/vehicles with JWT token.
+Create Vehicles.jsx that fetches and displays all vehicles on page load.
+Create AddVehicle.jsx with a form for make, model, category, price, and quantity. On successful creation, redirect to /vehicles.
+Update App.jsx to:
+Add routes for /vehicles and /vehicles/new.
+Add navigation links for Vehicles and Add Vehicle.
+Implement Logout directly in App.jsx: if a JWT token exists in localStorage, hide Login/Register and show a Logout button instead. Clicking Logout should remove the token, navigate to /login, and optionally show a success alert. Refactor App.jsx if necessary so useNavigate() works correctly.
+Reuse my existing CSS and component style (page, card, auth-card, btn, input) so the new pages match the current UI.
+Keep the code clean, beginner-friendly, and consistent with my existing project structure."
