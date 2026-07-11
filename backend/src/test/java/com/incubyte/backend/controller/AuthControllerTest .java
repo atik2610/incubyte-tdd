@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.incubyte.backend.dto.RegisterRequest;
 import com.incubyte.backend.repository.UserRepository;
 import com.incubyte.backend.security.JwtFilter;
+import com.incubyte.backend.security.JwtUtil;
 import com.incubyte.backend.service.CustomUserDetailsService;
 
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,12 @@ class AuthControllerTest {
 
     @MockBean
     private PasswordEncoder passwordEncoder;
+
+    @MockBean
+    private AuthenticationManager authenticationManager;
+
+    @MockBean
+    private JwtUtil jwtUtil;
 
     // Required because JwtFilter is injected into SecurityConfig
     @MockBean
