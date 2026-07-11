@@ -13,8 +13,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @WebMvcTest(VehicleController.class)
 @AutoConfigureMockMvc(addFilters = false)
 class VehicleControllerTest {
@@ -60,5 +63,14 @@ void shouldCreateVehicleSuccessfully() throws Exception {
                     .content(request))
             .andExpect(status().isCreated());
 }
+
+    @Test
+    void shouldDeleteVehicleSuccessfully() throws Exception {
+
+        mockMvc.perform(delete("/api/vehicles/1"))
+                .andExpect(status().isNoContent());
+
+        verify(vehicleService).deleteVehicle(1L);
+    }
     
 }
