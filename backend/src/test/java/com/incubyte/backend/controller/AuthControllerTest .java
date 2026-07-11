@@ -60,6 +60,17 @@ class AuthControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk());
+    }
+    @Test
+    void shouldLoginSuccessfully() throws Exception {
 
+        LoginRequest request = new LoginRequest();
+        request.setName("atik");
+        request.setPassword("123456");
+
+        mockMvc.perform(post("/api/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk());
     }
 }
