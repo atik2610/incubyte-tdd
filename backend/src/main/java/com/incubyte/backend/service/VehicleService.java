@@ -1,5 +1,6 @@
 package com.incubyte.backend.service;
 import com.incubyte.backend.dto.VehicleRequest;
+import com.incubyte.backend.dto.VehicleResponse;
 import com.incubyte.backend.entity.Vehicle;
 import java.util.List;
 
@@ -11,4 +12,11 @@ public interface VehicleService {
     Vehicle updateVehicle(Long id, VehicleRequest request);
     Vehicle purchaseVehicle(Long id);
     Vehicle restockVehicle(Long id);
+    List<VehicleResponse> searchVehicles(
+        String make,
+        String model,
+        String category,
+        Double minPrice,
+        Double maxPrice
+);
 }

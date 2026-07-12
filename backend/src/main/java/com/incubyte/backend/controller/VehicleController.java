@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.incubyte.backend.dto.VehicleRequest;
+import com.incubyte.backend.dto.VehicleResponse;
 import com.incubyte.backend.entity.Vehicle;
 import com.incubyte.backend.service.VehicleService;
 
@@ -65,5 +67,23 @@ public class VehicleController  {
     @PostMapping("/{id}/restock")
     public ResponseEntity<Vehicle> restockVehicle(@PathVariable Long id) {
         return ResponseEntity.ok(vehicleService.restockVehicle(id));
+    }
+
+    @GetMapping("/search")
+    public List<VehicleResponse> searchVehicles(
+            @RequestParam(required = false) String make,
+            @RequestParam(required = false) String model,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice
+    ) {
+
+        return vehicleService.searchVehicles(
+                make,
+                model,
+                category,
+                minPrice,
+                maxPrice
+        );
     }
 }
