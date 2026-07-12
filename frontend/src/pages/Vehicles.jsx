@@ -286,8 +286,9 @@ function Vehicles() {
                                         <button
                                             className="purchase-btn"
                                             onClick={() => handlePurchase(vehicle.id)}
+                                            disabled={vehicle.quantity === 0}
                                         >
-                                            Purchase
+                                            {vehicle.quantity === 0 ? "Out of Stock" : "Purchase"}
                                         </button>
     )}
 
