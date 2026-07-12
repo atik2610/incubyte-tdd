@@ -60,4 +60,13 @@ public class VehicleServiceImpl implements VehicleService {
         vehicle.setQuantity(vehicle.getQuantity() - 1);
         return repository.save(vehicle);
     }
+
+    @Override
+    public Vehicle restockVehicle(Long id) {
+        Vehicle vehicle = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicle not found with id: " + id));
+
+        vehicle.setQuantity(vehicle.getQuantity() + 1);
+        return repository.save(vehicle);
+    }
 }
