@@ -38,13 +38,177 @@ frontend/
 
 ## Setup
 
-To be updated.
+# 🚀 How to Run the Project
+
+## Prerequisites
+
+Make sure the following software is installed:
+
+- Java 17 or later
+- Maven
+- Node.js (v18 or later)
+- npm
+- MySQL
+- Git
+
+---
+
+## 1. Clone the Repository
+
+```bash
+git clone https://github.com/atik2610/incubyte-tdd
+cd incubyte-tdd
+```
+
+---
+
+## 2. Setup MySQL Database
+
+download XAMPP control panel
+Start apache
+Start mysql
+click on admin button of mysql
+
+Create a MySQL database:
+
+```sql
+CREATE DATABASE car_dealership;
+```
+
+Update the database configuration in:
+
+```
+backend/src/main/resources/application.properties
+```
+
+Example:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/car_dealership
+spring.datasource.username=root
+spring.datasource.password=your_password
+spring.jpa.hibernate.ddl-auto=update
+```
+
+---
+
+## 3. Run the Backend
+
+Open a terminal inside the backend folder.
+
+```bash
+cd backend
+```
+
+Run the application:
+
+```bash
+mvn spring-boot:run
+```
+
+The backend will start on:
+
+```
+http://localhost:8080
+```
+
+---
+
+## 4. Run the Frontend
+
+Open another terminal.
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the React application:
+
+```bash
+npm run dev
+```
+
+The frontend will be available at:
+
+```
+http://localhost:5173
+```
+
+---
+
+## 5. Login
+
+Register a new account from the Register page.
+
+Select one of the following roles:
+
+- USER
+- ADMIN
+
+Then login using the registered credentials.
+
+---
+
+## Features
+
+### USER
+
+- View all vehicles
+- Search vehicles
+- Purchase available vehicles
+
+### ADMIN
+
+- Add new vehicles
+- Edit vehicle details
+- Delete vehicles
+- Restock vehicles
+- Search vehicles
+
+---
+
+## Tech Stack
+
+### Backend
+
+- Java
+- Spring Boot
+- Spring Security
+- JWT Authentication
+- Spring Data JPA
+- MySQL
+- Maven
+
+### Frontend
+
+- React
+- Vite
+- React Router
+- CSS
+
+---
+
+## Notes
+
+- Backend runs on **http://localhost:8080**
+- Frontend runs on **http://localhost:5173**
+- Ensure MySQL is running before starting the backend.
 
 ## Testing
 
-To be updated.
+Performed unit testing and integration testing as per requirement.
 
 ## My AI Usage
+
+I mainly used chatgpt.I gave my file to AI tools and ask them to remember it.then i give them proper prompt regarding 'what exactly we need to do?'.Then i manually review code and update it.
+
+Some of my propt example which were used while developing this project:
 
 I have a React application with three pages: Home, Login, and Register. I want to improve only the UI using plain CSS (no Tailwind, Bootstrap, Material UI, Chakra UI, or other CSS frameworks).
 
