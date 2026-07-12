@@ -67,7 +67,16 @@ void shouldCreateVehicleSuccessfully() throws Exception {
                     .content(request))
             .andExpect(status().isCreated());
 }
+    @Test
+    void shouldPurchaseVehicleSuccessfully() throws Exception {
 
+        mockMvc.perform(
+                post("/api/vehicles/1/purchase")
+        )
+        .andExpect(status().isOk());
+
+        verify(vehicleService).purchaseVehicle(1L);
+    }
     @Test
     void shouldDeleteVehicleSuccessfully() throws Exception {
 
