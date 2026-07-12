@@ -19,7 +19,7 @@ function Login() {
       alert("Login Successful");
       console.log(data);
     } catch (err) {
-      alert(err.message);
+      alert("ID OR PASSWORD IS WRONG");
     }
   };
 
