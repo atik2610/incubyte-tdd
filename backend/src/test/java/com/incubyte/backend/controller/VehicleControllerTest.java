@@ -111,5 +111,14 @@ void shouldCreateVehicleSuccessfully() throws Exception {
                 any(VehicleRequest.class)
         );
     }
-    
+    @Test
+    void shouldRestockVehicleSuccessfully() throws Exception {
+
+        mockMvc.perform(
+                post("/api/vehicles/2/restock")
+        )
+        .andExpect(status().isOk());
+
+        verify(vehicleService).restockVehicle(2L);
+    }
 }
