@@ -53,4 +53,12 @@ public class VehicleController  {
 
         return ResponseEntity.ok(updatedVehicle);
     }
+
+    @PostMapping("/{id}/purchase")
+    public ResponseEntity<Vehicle> purchaseVehicle(@PathVariable Long id) {
+
+        Vehicle vehicle = vehicleService.purchaseVehicle(id);
+
+        return ResponseEntity.ok(vehicle);
+    }
 }

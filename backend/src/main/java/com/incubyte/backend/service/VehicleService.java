@@ -9,4 +9,5 @@ public interface VehicleService {
     Vehicle createVehicle(VehicleRequest request);
     void deleteVehicle(Long id);
     Vehicle updateVehicle(Long id, VehicleRequest request);
+    Vehicle purchaseVehicle(Long id);
 }
