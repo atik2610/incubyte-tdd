@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* =========================
+   Global
+========================= */
 
 *{
     margin:0;
@@ -6,126 +10,224 @@
     box-sizing:border-box;
 }
 
-body{
-    font-family:'Poppins',sans-serif;
-    background:#f5f7fb;
-    color:#1f2937;
+html{
+    scroll-behavior:smooth;
 }
 
-/* Navbar */
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f4f7fc;
+    color:#1f2937;
+    min-height:100vh;
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* =========================
+   Navbar
+========================= */
 
 .navbar{
-    height:70px;
-    background:#fff;
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    height:72px;
+    background:#ffffff;
+
     display:flex;
     justify-content:space-between;
     align-items:center;
+
     padding:0 60px;
-    box-shadow:0 4px 12px rgba(0,0,0,.06);
+
+    border-bottom:1px solid #e5e7eb;
+    box-shadow:0 8px 24px rgba(0,0,0,.06);
 }
 
 .logo{
-    font-size:24px;
-    font-weight:600;
+    font-size:28px;
+    font-weight:700;
     color:#2563eb;
 }
 
 .nav-links{
     display:flex;
-    gap:15px;
+    align-items:center;
+    gap:16px;
 }
 
 .nav-links a{
     text-decoration:none;
-    color:#374151;
+    color:#4b5563;
     padding:10px 18px;
-    border-radius:8px;
-    transition:.3s;
+    border-radius:10px;
+    font-weight:500;
+    transition:.25s;
 }
 
 .nav-links a:hover{
-    background:#2563eb;
-    color:white;
+    background:#eff6ff;
+    color:#2563eb;
 }
 
 .nav-links a.active{
     background:#2563eb;
-    color:white;
+    color:#fff;
 }
 
-/* Pages */
+/* Logout */
+
+.logout-button{
+    border:none;
+    background:#ef4444;
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:500;
+    transition:.3s;
+}
+
+.logout-button:hover{
+    background:#dc2626;
+    transform:translateY(-2px);
+}
+
+.logout-button:active{
+    transform:scale(.97);
+}
+
+.logout-button:focus{
+    outline:none;
+}
+
+/* =========================
+   Page
+========================= */
 
 .page{
-    min-height:calc(100vh - 70px);
+    width:100%;
+    min-height:calc(100vh - 72px);
+
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:30px;
+
+    padding:40px 20px;
 }
 
-/* Cards */
+/* =========================
+   Cards
+========================= */
 
 .card{
-    background:white;
-    border-radius:16px;
+    background:#fff;
+    border-radius:18px;
     padding:40px;
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-    animation:fade .5s ease;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.08);
+
+    animation:fadeUp .45s ease;
+
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.10);
 }
 
 .auth-card{
-    width:400px;
+    width:100%;
+    max-width:430px;
 }
 
 .home-card{
-    width:500px;
+    width:100%;
+    max-width:550px;
     text-align:center;
 }
 
 .card h2{
+    font-size:32px;
     margin-bottom:10px;
-    font-size:30px;
+    color:#111827;
 }
 
 .subtitle{
     color:#6b7280;
-    margin-bottom:30px;
+    font-size:15px;
+    margin-bottom:28px;
+    line-height:1.6;
 }
 
-/* Form */
+/* =========================
+   Forms
+========================= */
 
 form{
     display:flex;
     flex-direction:column;
-    gap:20px;
+    gap:18px;
 }
 
-.input{
+.input,
+input,
+select{
     width:100%;
-    padding:14px 18px;
+    padding:14px 16px;
+
     border:1px solid #d1d5db;
     border-radius:10px;
-    outline:none;
-    font-size:16px;
-    transition:.3s;
+
+    font-size:15px;
+
+    transition:.25s;
+
+    background:#fff;
 }
 
-.input:focus{
+.input:focus,
+input:focus,
+select:focus{
+    outline:none;
     border-color:#2563eb;
     box-shadow:0 0 0 4px rgba(37,99,235,.15);
 }
 
-/* Button */
+input::placeholder{
+    color:#9ca3af;
+}
+
+/* =========================
+   Buttons
+========================= */
 
 .btn{
-    padding:14px;
     border:none;
+
+    padding:14px;
+
     border-radius:10px;
+
     background:#2563eb;
     color:white;
+
     font-size:16px;
-    cursor:pointer;
-    transition:.3s;
+    font-weight:600;
+
+    transition:.25s;
 }
 
 .btn:hover{
@@ -137,16 +239,51 @@ form{
     transform:scale(.98);
 }
 
-/* Home Status */
+.btn:disabled{
+    background:#9ca3af;
+    cursor:not-allowed;
+}
+
+/* Generic Buttons */
+
+button{
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    background:#2563eb;
+    color:#fff;
+    transition:.25s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+button:active{
+    transform:scale(.98);
+}
+
+button:focus{
+    outline:none;
+}
+
+/* =========================
+   Home
+========================= */
 
 .status{
     margin-top:30px;
 }
 
 .badge{
-    display:inline-block;
-    padding:12px 22px;
-    border-radius:30px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    padding:12px 24px;
+
+    border-radius:40px;
+
     font-weight:600;
 }
 
@@ -160,37 +297,641 @@ form{
     color:#991b1b;
 }
 
-/* Animation */
+/* =========================
+   Animation
+========================= */
 
-@keyframes fade{
+@keyframes fadeUp{
+
     from{
         opacity:0;
-        transform:translateY(20px);
+        transform:translateY(25px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
     }
+
 }
 
-/* Responsive */
+/* =====================================================
+   VEHICLES PAGE
+===================================================== */
 
-@media(max-width:768px){
+/* Main vehicle container */
+
+.vehicle-page{
+    width:100%;
+    max-width:1200px;
+}
+
+/* Search Card */
+
+.search-card{
+    margin-bottom:30px;
+}
+
+.search-card h3{
+    margin-bottom:20px;
+    font-size:22px;
+    color:#1f2937;
+}
+
+.search-card form{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:16px;
+}
+
+.search-card button{
+    height:48px;
+}
+
+/* Vehicle Grid */
+
+.vehicle-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:24px;
+}
+
+/* Individual Vehicle Card */
+
+.vehicle-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:24px;
+
+    box-shadow:
+        0 10px 24px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+    border:1px solid #eef2f7;
+
+}
+
+.vehicle-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+        0 18px 36px rgba(0,0,0,.12);
+
+}
+
+.vehicle-card h3{
+
+    color:#2563eb;
+
+    margin-bottom:18px;
+
+    font-size:24px;
+
+}
+
+.vehicle-card p{
+
+    margin-bottom:10px;
+
+    color:#4b5563;
+
+    line-height:1.6;
+
+}
+
+.vehicle-card strong{
+
+    color:#111827;
+
+}
+
+/* Stock Badge */
+
+.stock{
+
+    display:inline-block;
+
+    margin-top:10px;
+
+    padding:8px 14px;
+
+    border-radius:30px;
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+    font-weight:600;
+
+}
+
+/* Buttons */
+
+.vehicle-actions{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+/* Purchase */
+
+.purchase-btn{
+
+    background:#2563eb;
+
+}
+
+.purchase-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+/* Restock */
+
+.restock-btn{
+
+    background:#16a34a;
+
+}
+
+.restock-btn:hover{
+
+    background:#15803d;
+
+}
+
+/* Edit */
+
+.edit-btn{
+
+    background:#f59e0b;
+
+}
+
+.edit-btn:hover{
+
+    background:#d97706;
+
+}
+
+/* Delete */
+
+.delete-btn{
+
+    background:#ef4444;
+
+}
+
+.delete-btn:hover{
+
+    background:#dc2626;
+
+}
+
+/* Search Button */
+
+.search-btn{
+
+    background:#2563eb;
+
+}
+
+.search-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+/* Show All */
+
+.show-btn{
+
+    background:#6b7280;
+
+}
+
+.show-btn:hover{
+
+    background:#4b5563;
+
+}
+
+/* Empty State */
+
+.empty{
+
+    text-align:center;
+
+    padding:60px;
+
+    background:white;
+
+    border-radius:18px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    color:#6b7280;
+
+    font-size:18px;
+
+}
+
+/* Vehicle Information */
+
+.vehicle-price{
+
+    color:#16a34a;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    margin-top:8px;
+
+}
+
+.vehicle-category{
+
+    display:inline-block;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    padding:6px 12px;
+
+    border-radius:30px;
+
+    margin-bottom:12px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+/* Divider */
+
+.vehicle-divider{
+
+    margin-top:18px;
+
+    margin-bottom:18px;
+
+    border:none;
+
+    border-top:1px solid #e5e7eb;
+
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN
+===================================================== */
+
+@media (max-width:1200px){
+
+    .vehicle-page{
+        max-width:1000px;
+    }
+
+}
+
+@media (max-width:992px){
+
+    .navbar{
+        padding:0 30px;
+    }
+
+    .vehicle-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media (max-width:768px){
+
+    /* Navbar */
 
     .navbar{
         flex-direction:column;
         height:auto;
         padding:20px;
-        gap:15px;
+        gap:20px;
+    }
+
+    .logo{
+        font-size:26px;
+    }
+
+    .nav-links{
+        width:100%;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:12px;
+    }
+
+    .nav-links a,
+    .logout-button{
+        width:100%;
+        text-align:center;
+    }
+
+    /* Cards */
+
+    .card{
+        width:100%;
+        padding:28px;
     }
 
     .auth-card,
     .home-card{
+        max-width:100%;
+    }
+
+    /* Search */
+
+    .search-card form{
+        grid-template-columns:1fr;
+    }
+
+    /* Vehicles */
+
+    .vehicle-grid{
+        grid-template-columns:1fr;
+    }
+
+    .vehicle-actions{
+        flex-direction:column;
+    }
+
+    .vehicle-actions button{
         width:100%;
-        max-width:420px;
+    }
+
+}
+
+@media (max-width:480px){
+
+    .page{
+        padding:15px;
     }
 
     .card{
-        padding:30px;
+        padding:20px;
     }
+
+    .card h2{
+        font-size:26px;
+    }
+
+    .subtitle{
+        font-size:14px;
+    }
+
+    .input,
+    input,
+    select{
+        padding:12px;
+    }
+
+    .btn{
+        padding:12px;
+    }
+
+    .vehicle-card{
+        padding:18px;
+    }
+
+}
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#f3f4f6;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#2563eb;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#1d4ed8;
+}
+
+/* =====================================================
+   SMOOTH TRANSITIONS
+===================================================== */
+
+*{
+    transition:
+        background-color .25s,
+        color .25s,
+        border-color .25s,
+        box-shadow .25s,
+        transform .25s;
+}
+
+/* =====================================================
+   INPUT PLACEHOLDERS
+===================================================== */
+
+input::placeholder{
+    color:#9ca3af;
+}
+
+select{
+    cursor:pointer;
+}
+
+/* =====================================================
+   BUTTON STATES
+===================================================== */
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+    transform:none;
+}
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+.success{
+    box-shadow:0 8px 20px rgba(34,197,94,.18);
+}
+
+.danger{
+    box-shadow:0 8px 20px rgba(239,68,68,.18);
+}
+
+.stock{
+    box-shadow:0 4px 12px rgba(37,99,235,.12);
+}
+
+.vehicle-category{
+    box-shadow:0 4px 12px rgba(37,99,235,.10);
+}
+
+/* =====================================================
+   CARD HOVER
+===================================================== */
+
+.card,
+.vehicle-card{
+
+    will-change:transform;
+
+}
+
+/* =====================================================
+   LINKS
+===================================================== */
+
+a{
+    transition:.25s;
+}
+
+/* =====================================================
+   SELECTION
+===================================================== */
+
+::selection{
+    background:#2563eb;
+    color:white;
+}
+
+/* =====================================================
+   FADE-IN
+===================================================== */
+
+.page{
+    animation:fadePage .4s ease;
+}
+
+@keyframes fadePage{
+
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* ===========================
+   Add Vehicle
+=========================== */
+
+.add-vehicle-card{
+    width:100%;
+    max-width:650px;
+}
+
+.form-header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.form-grid input:last-child{
+    grid-column:span 2;
+}
+
+.add-btn{
+    margin-top:25px;
+    width:100%;
+}
+
+@media(max-width:768px){
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid input:last-child{
+        grid-column:span 1;
+    }
+
+}
+
+/* ===========================
+   Home
+=========================== */
+
+.home-card{
+    max-width:900px;
+    text-align:center;
+}
+
+.home-features{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.feature-card{
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    padding:24px;
+    transition:.3s;
+}
+
+.feature-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 24px rgba(0,0,0,.08);
+}
+
+.feature-card h4{
+    margin:14px 0 10px;
+    color:#2563eb;
+    font-size:20px;
+}
+
+.feature-card p{
+    color:#6b7280;
+    line-height:1.6;
+}
+
+.search-card form{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+}
+
+.search-actions{
+    grid-column:1 / -1;
+    display:flex;
+    justify-content:center;
+    gap:16px;
 }

@@ -25,7 +25,7 @@ function AppContent() {
   return (
     <>
       <nav className="navbar">
-        <div className="logo">Auth Demo</div>
+        <div className="logo">WELCOME</div>
 
         <div className="nav-links">
           <NavLink to="/">Home</NavLink>

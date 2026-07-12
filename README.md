@@ -106,3 +106,74 @@ Requirements:
 6. Keep the implementation simple using React hooks (useState/useEffect).
 7. Do not use Redux or external libraries.
 8. Return the complete updated Vehicles.jsx file.
+
+
+I have a React + Vite vehicle dealership application. Please improve the UI by adding modern, responsive CSS only.
+
+Requirements:
+- Do NOT change any React component logic, API calls, routing, or functionality.
+- Only modify CSS (or add CSS classes where absolutely necessary).
+- Use a clean, professional dashboard-like design.
+- Use the Poppins font.
+- Keep the color palette primarily white, blue (#2563eb), and light gray.
+- Make the UI fully responsive for desktop, tablet, and mobile.
+
+Pages:
+1. Home
+   - Attractive welcome card.
+   - Modern logged-in / not logged-in status badge.
+
+2. Login
+   - Centered login card.
+   - Modern input fields with focus effects.
+   - Attractive login button with hover animation.
+
+3. Register
+   - Same style as Login.
+   - Beautiful select dropdown for role.
+
+4. Add Vehicle
+   - Professional form layout.
+   - Equal-width inputs.
+   - Modern submit button.
+
+5. Vehicles
+   - Replace the plain list with modern cards.
+   - Each vehicle should appear inside its own card.
+   - Display Make, Model, Category, Price, and Stock neatly.
+   - Search section should be inside a separate card.
+   - Buttons (Purchase, Restock, Edit, Delete) should have different colors.
+   - Add spacing, shadows, rounded corners, and hover effects.
+   - Make the layout responsive.
+
+Navbar:
+- Modern sticky navigation bar.
+- Highlight the active page.
+- Attractive Logout button.
+- Smooth hover animations.
+
+Buttons:
+- Rounded corners.
+- Hover animations.
+- Active click effect.
+- Disabled state styling.
+
+Forms:
+- Rounded inputs.
+- Blue focus border and shadow.
+- Consistent spacing.
+
+Cards:
+- Rounded corners.
+- Soft shadows.
+- Hover lift animation.
+
+Animations:
+- Smooth transitions.
+- Fade-in animation for pages.
+- Hover effects for cards and buttons.
+
+Important:
+- Do not modify JavaScript logic.
+- Do not change component functionality.
+- Generate a complete, production-quality CSS file (index.css) that works with the existing React components.

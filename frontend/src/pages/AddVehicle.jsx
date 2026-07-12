@@ -4,107 +4,128 @@ import { createVehicle } from "../api/vehicleApi";
 
 function AddVehicle() {
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    make: "",
-    model: "",
-    category: "",
-    price: "",
-    quantity: "",
-  });
-
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
+    const [form, setForm] = useState({
+        make: "",
+        model: "",
+        category: "",
+        price: "",
+        quantity: ""
     });
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      await createVehicle({
-        ...form,
-        price: Number(form.price),
-        quantity: Number(form.quantity),
-      });
-
-      alert("Vehicle added successfully!");
-
-      navigate("/vehicles");
-    } catch (err) {
-      alert(err.message);
+    function handleChange(e) {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value
+        });
     }
-  };
 
-  return (
-    <div className="page">
-      <div className="card auth-card">
+    async function handleSubmit(e) {
 
-        <h2>Add Vehicle</h2>
+        e.preventDefault();
 
-        <p className="subtitle">
-          Enter vehicle details.
-        </p>
+        try {
 
-        <form onSubmit={handleSubmit}>
+            await createVehicle({
+                ...form,
+                price: Number(form.price),
+                quantity: Number(form.quantity)
+            });
 
-          <input
-            className="input"
-            type="text"
-            name="make"
-            placeholder="Make"
-            value={form.make}
-            onChange={handleChange}
-          />
+            alert("Vehicle added successfully!");
 
-          <input
-            className="input"
-            type="text"
-            name="model"
-            placeholder="Model"
-            value={form.model}
-            onChange={handleChange}
-          />
+            navigate("/vehicles");
 
-          <input
-            className="input"
-            type="text"
-            name="category"
-            placeholder="Category"
-            value={form.category}
-            onChange={handleChange}
-          />
+        } catch (err) {
+            alert(err.message);
+        }
+    }
 
-          <input
-            className="input"
-            type="number"
-            name="price"
-            placeholder="Price"
-            value={form.price}
-            onChange={handleChange}
-          />
+    return (
+        <div className="page">
 
-          <input
-            className="input"
-            type="number"
-            name="quantity"
-            placeholder="Quantity"
-            value={form.quantity}
-            onChange={handleChange}
-          />
+            <div className="card add-vehicle-card">
 
-          <button className="btn" type="submit">
-            Add Vehicle
-          </button>
+                <div className="form-header">
 
-        </form>
+                    <h2>Add New Vehicle</h2>
 
-      </div>
-    </div>
-  );
+                    <p className="subtitle">
+                        Fill in the details below to add a new vehicle to the inventory.
+                    </p>
+
+                </div>
+
+                <form onSubmit={handleSubmit}>
+
+                    <div className="form-grid">
+
+                        <input
+                            className="input"
+                            type="text"
+                            name="make"
+                            placeholder="Vehicle Make"
+                            value={form.make}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <input
+                            className="input"
+                            type="text"
+                            name="model"
+                            placeholder="Vehicle Model"
+                            value={form.model}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <input
+                            className="input"
+                            type="text"
+                            name="category"
+                            placeholder="Category"
+                            value={form.category}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <input
+                            className="input"
+                            type="number"
+                            name="price"
+                            placeholder="Price"
+                            value={form.price}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <input
+                            className="input"
+                            type="number"
+                            name="quantity"
+                            placeholder="Available Stock"
+                            value={form.quantity}
+                            onChange={handleChange}
+                            required
+                        />
+
+                    </div>
+
+                    <button
+                        className="btn add-btn"
+                        type="submit"
+                    >
+                        Add Vehicle
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+    );
 }
 
 export default AddVehicle;

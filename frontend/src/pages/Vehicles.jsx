@@ -20,32 +20,42 @@ function Vehicles() {
         maxPrice: ""
     });
 
+    const isLoggedIn = !!localStorage.getItem("token");
     const isAdmin = localStorage.getItem("role") === "ROLE_ADMIN";
-
-    async function loadVehicles() {
-
-        try {
-
-            const data = await getVehicles();
-            setVehicles(data);
-
-        } catch (err) {
-            alert(err.message);
-        }
-    }
 
     useEffect(() => {
         loadVehicles();
     }, []);
 
-    async function handleSearch(e) {
+    async function loadVehicles() {
+        try {
+            const data = await getVehicles();
+            setVehicles(data);
+        } catch (err) {
+            alert(err.message);
+        }
+    }
 
+    async function handleSearch(e) {
         e.preventDefault();
 
         try {
-
             const data = await searchVehicles(search);
             setVehicles(data);
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
+    async function handlePurchase(id) {
+        try {
+            const updatedVehicle = await purchaseVehicle(id);
+
+            setVehicles(prev =>
+                prev.map(vehicle =>
+                    vehicle.id === id ? updatedVehicle : vehicle
+                )
+            );
 
         } catch (err) {
             alert(err.message);
@@ -59,23 +69,6 @@ function Vehicles() {
         try {
 
             const updatedVehicle = await restockVehicle(id);
-
-            setVehicles(prev =>
-                prev.map(vehicle =>
-                    vehicle.id === id ? updatedVehicle : vehicle
-                )
-            );
-
-        } catch (err) {
-            alert(err.message);
-        }
-    }
-
-    async function handlePurchase(id) {
-
-        try {
-
-            const updatedVehicle = await purchaseVehicle(id);
 
             setVehicles(prev =>
                 prev.map(vehicle =>
@@ -147,123 +140,196 @@ function Vehicles() {
     return (
         <div className="page">
 
-            <div className="card" style={{ width: "700px" }}>
+            <div className="vehicle-page">
 
-                <h2>Vehicles</h2>
+                {/* Search Section */}
 
-                <form onSubmit={handleSearch} style={{ marginBottom: "20px" }}>
+                <div className="card search-card">
 
-                    <input
-                        type="text"
-                        placeholder="Make"
-                        value={search.make}
-                        onChange={(e) =>
-                            setSearch({ ...search, make: e.target.value })
-                        }
-                    />
+                    <h2>Search Vehicles</h2>
 
-                    <input
-                        type="text"
-                        placeholder="Model"
-                        value={search.model}
-                        onChange={(e) =>
-                            setSearch({ ...search, model: e.target.value })
-                        }
-                    />
+                    <form onSubmit={handleSearch}>
 
-                    <input
-                        type="text"
-                        placeholder="Category"
-                        value={search.category}
-                        onChange={(e) =>
-                            setSearch({ ...search, category: e.target.value })
-                        }
-                    />
+                        <input
+                            className="input"
+                            type="text"
+                            placeholder="Make"
+                            value={search.make}
+                            onChange={(e) =>
+                                setSearch({
+                                    ...search,
+                                    make: e.target.value
+                                })
+                            }
+                        />
 
-                    <input
-                        type="number"
-                        placeholder="Min Price"
-                        value={search.minPrice}
-                        onChange={(e) =>
-                            setSearch({ ...search, minPrice: e.target.value })
-                        }
-                    />
+                        <input
+                            className="input"
+                            type="text"
+                            placeholder="Model"
+                            value={search.model}
+                            onChange={(e) =>
+                                setSearch({
+                                    ...search,
+                                    model: e.target.value
+                                })
+                            }
+                        />
 
-                    <input
-                        type="number"
-                        placeholder="Max Price"
-                        value={search.maxPrice}
-                        onChange={(e) =>
-                            setSearch({ ...search, maxPrice: e.target.value })
-                        }
-                    />
+                        <input
+                            className="input"
+                            type="text"
+                            placeholder="Category"
+                            value={search.category}
+                            onChange={(e) =>
+                                setSearch({
+                                    ...search,
+                                    category: e.target.value
+                                })
+                            }
+                        />
 
-                    <button type="submit">
-                        Search
-                    </button>
+                        <input
+                            className="input"
+                            type="number"
+                            placeholder="Min Price"
+                            value={search.minPrice}
+                            onChange={(e) =>
+                                setSearch({
+                                    ...search,
+                                    minPrice: e.target.value
+                                })
+                            }
+                        />
 
-                    <button
-                        type="button"
-                        onClick={() => {
-                            setSearch({
-                                make: "",
-                                model: "",
-                                category: "",
-                                minPrice: "",
-                                maxPrice: ""
-                            });
-                            loadVehicles();
-                        }}
-                    >
-                        Show All
-                    </button>
+                        <input
+                            className="input"
+                            type="number"
+                            placeholder="Max Price"
+                            value={search.maxPrice}
+                            onChange={(e) =>
+                                setSearch({
+                                    ...search,
+                                    maxPrice: e.target.value
+                                })
+                            }
+                        />
 
-                </form>
+                        <div className="search-actions">
 
-                <hr />
+                        <button className="search-btn" type="submit">
+                            Search
+                        </button>
 
-                {vehicles.length === 0 ? (
-                    <p>No vehicles found.</p>
-                ) : (
-                    vehicles.map(vehicle => (
+                        <button
+                            className="show-btn"
+                            type="button"
+                            onClick={() => {
+                                setSearch({
+                                    make: "",
+                                    model: "",
+                                    category: "",
+                                    minPrice: "",
+                                    maxPrice: ""
+                                });
 
-                        <div key={vehicle.id} style={{ marginBottom: "20px" }}>
-
-                            <p><strong>Make:</strong> {vehicle.make}</p>
-
-                            <p><strong>Model:</strong> {vehicle.model}</p>
-
-                            <p><strong>Category:</strong> {vehicle.category}</p>
-
-                            <p><strong>Price:</strong> ₹{vehicle.price}</p>
-
-                            <p><strong>Stock:</strong> {vehicle.quantity}</p>
-
-                            {isAdmin && (
-                                <>
-                                    <button onClick={() => handleRestock(vehicle.id)}>
-                                        Restock
-                                    </button>
-
-                                    <button onClick={() => handleUpdate(vehicle)}>
-                                        Edit
-                                    </button>
-
-                                    <button onClick={() => handleDelete(vehicle.id)}>
-                                        Delete
-                                    </button>
-                                </>
-                            )}
-
-                            <button onClick={() => handlePurchase(vehicle.id)}>
-                                Purchase
-                            </button>
-
-                            <hr />
+                                loadVehicles();
+                            }}
+                        >
+                            Show All
+                        </button>
 
                         </div>
 
-                    ))
+                    </form>
+
+                </div>
+
+                {/* Vehicle List */}
+
+                {vehicles.length === 0 ? (
+
+                    <div className="empty">
+                        No vehicles found.
+                    </div>
+
+                ) : (
+
+                    <div className="vehicle-grid">
+
+                        {vehicles.map(vehicle => (
+
+                            <div
+                                key={vehicle.id}
+                                className="vehicle-card"
+                            >
+
+                                <h3>
+                                    {vehicle.make} {vehicle.model}
+                                </h3>
+
+                                <div className="vehicle-category">
+                                    {vehicle.category}
+                                </div>
+
+                                <p className="vehicle-price">
+                                    ₹{vehicle.price.toLocaleString()}
+                                </p>
+
+                                <div className="stock">
+                                    Stock : {vehicle.quantity}
+                                </div>
+
+                                <div className="vehicle-actions">
+
+                                    {isLoggedIn && (
+                                        <button
+                                            className="purchase-btn"
+                                            onClick={() => handlePurchase(vehicle.id)}
+                                        >
+                                            Purchase
+                                        </button>
+    )}
+
+                                    {isAdmin && (
+                                        <>
+                                            <button
+                                                className="restock-btn"
+                                                onClick={() =>
+                                                    handleRestock(vehicle.id)
+                                                }
+                                            >
+                                                Restock
+                                            </button>
+
+                                            <button
+                                                className="edit-btn"
+                                                onClick={() =>
+                                                    handleUpdate(vehicle)
+                                                }
+                                            >
+                                                Edit
+                                            </button>
+
+                                            <button
+                                                className="delete-btn"
+                                                onClick={() =>
+                                                    handleDelete(vehicle.id)
+                                                }
+                                            >
+                                                Delete
+                                            </button>
+                                        </>
+                                    )}
+
+                                </div>
+
+                            </div>
+
+                        ))}
+
+                    </div>
+
                 )}
 
             </div>
