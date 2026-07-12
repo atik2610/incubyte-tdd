@@ -96,9 +96,14 @@ public class AuthController {
         userDetailsService.loadUserByUsername(request.getName());
 
         String token = jwtUtil.generateToken(userDetails);
+        String role = userDetails.getAuthorities()
+            .stream()
+            .findFirst()
+            .get()
+            .getAuthority();
 
         return ResponseEntity.ok(
-                new AuthResponse(token)
+                new AuthResponse(token, role)
         );
     }
 
