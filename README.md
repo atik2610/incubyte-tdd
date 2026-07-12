@@ -341,3 +341,43 @@ Important:
 - Do not modify JavaScript logic.
 - Do not change component functionality.
 - Generate a complete, production-quality CSS file (index.css) that works with the existing React components.
+
+### Test-case passed proof
+
+![Test](screenshots/test-cases.png)
+
+### Frontend Photos
+
+## 🏠 Home Page
+
+![Home](screenshots/home.png)
+
+---
+
+## 🔐 Login
+
+![Login](screenshots/login.png)
+
+---
+
+## 👤 Register
+
+![Register](screenshots/register.png)
+
+---
+
+## 🚗 Vehicles
+
+![Vehicles](screenshots/vehicle-details.png)
+
+---
+
+## ➕ Add Vehicle
+
+![Add Vehicle](screenshots/add-vehicle.png)
+
+---
+
+## 🔍 Search Vehicles
+
+![Search](screenshots/vehicle-search.png)
