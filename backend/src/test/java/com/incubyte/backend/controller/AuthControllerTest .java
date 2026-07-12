@@ -10,17 +10,26 @@ import com.incubyte.backend.service.CustomUserDetailsService;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+
 @WebMvcTest(AuthController.class)
 @AutoConfigureMockMvc(addFilters = false)
 class AuthControllerTest {
@@ -43,7 +52,6 @@ class AuthControllerTest {
     @MockBean
     private JwtUtil jwtUtil;
 
-    // Required because JwtFilter is injected into SecurityConfig
     @MockBean
     private JwtFilter jwtFilter;
 
@@ -57,17 +65,44 @@ class AuthControllerTest {
         request.setName("atik");
         request.setPassword("123456");
 
+        when(userRepository.findByName("atik"))
+                .thenReturn(Optional.empty());
+
+        when(passwordEncoder.encode("123456"))
+                .thenReturn("encodedPassword");
+
         mockMvc.perform(post("/api/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk());
     }
+
     @Test
     void shouldLoginSuccessfully() throws Exception {
 
         LoginRequest request = new LoginRequest();
         request.setName("atik");
         request.setPassword("123456");
+
+        UserDetails userDetails = User.withUsername("atik")
+                .password("123456")
+                .roles("USER")
+                .build();
+
+        when(authenticationManager.authenticate(any()))
+                .thenReturn(
+                        new UsernamePasswordAuthenticationToken(
+                                userDetails,
+                                null,
+                                userDetails.getAuthorities()
+                        )
+                );
+
+        when(customUserDetailsService.loadUserByUsername("atik"))
+                .thenReturn(userDetails);
+
+        when(jwtUtil.generateToken(userDetails))
+                .thenReturn("dummy-token");
 
         mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
