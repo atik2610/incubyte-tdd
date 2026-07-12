@@ -32,8 +32,53 @@ A full-stack Car Dealership Inventory System built as part of the Incubyte Softw
 ## Project Structure
 
 ```text
-backend/
-frontend/
+incubyte-tdd/
+│
+├── backend/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/com/incubyte/backend/
+│   │   │   │   ├── config/
+│   │   │   │   ├── controller/
+│   │   │   │   ├── dto/
+│   │   │   │   ├── entity/
+│   │   │   │   ├── exception/
+│   │   │   │   ├── mapper/
+│   │   │   │   ├── repository/
+│   │   │   │   ├── security/
+│   │   │   │   ├── service/
+│   │   │   │   │   └── impl/
+│   │   │   │   └── util/
+│   │   │   └── resources/
+│   │   └── test/
+│   │       └── java/com/incubyte/backend/
+│   │           ├── controller/
+│   │           ├── integration/
+│   │           ├── security/
+│   │           └── service/
+│   ├── pom.xml
+│   └── mvnw
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── api/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── hooks/
+│   │   ├── layouts/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── styles/
+│   │   └── utils/
+│   ├── package.json
+│   └── vite.config.js
+│
+├── screenshots/
+├── README.md
+└── .gitignore
+
 ```
 
 ## Setup
