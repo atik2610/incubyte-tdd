@@ -3,12 +3,31 @@ import {
     getVehicles,
     deleteVehicle,
     updateVehicle,
-    purchaseVehicle
+    purchaseVehicle,
+    restockVehicle
 } from "../api/vehicleApi";
 
 function Vehicles() {
 
     const [vehicles, setVehicles] = useState([]);
+
+    async function handleRestock(id) {
+
+        try {
+
+            const updatedVehicle = await restockVehicle(id);
+
+            setVehicles(prev =>
+                prev.map(vehicle =>
+                    vehicle.id === id ? updatedVehicle : vehicle
+                )
+            );
+
+        } catch (err) {
+
+            alert(err.message);
+        }
+    }
 
     async function handlePurchase(id) {
 
@@ -111,6 +130,10 @@ function Vehicles() {
                         <p>Price : ₹{vehicle.price}</p>
 
                         <p>Stock : {vehicle.quantity}</p>
+
+                        <button onClick={() => handleRestock(vehicle.id)}>
+                            Restock
+                        </button>
 
                         <button onClick={() => handlePurchase(vehicle.id)}>
                             Purchase

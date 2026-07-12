@@ -84,3 +84,19 @@ export async function purchaseVehicle(id) {
 
     return response.json();
 }
+
+export async function restockVehicle(id) {
+
+    const response = await fetch(`${BASE_URL}/${id}/restock`, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${getToken()}`
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(await response.text());
+    }
+
+    return response.json();
+}
