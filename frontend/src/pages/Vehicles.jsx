@@ -20,6 +20,8 @@ function Vehicles() {
         maxPrice: ""
     });
 
+    const isAdmin = localStorage.getItem("role") === "ROLE_ADMIN";
+
     async function loadVehicles() {
 
         try {
@@ -51,6 +53,8 @@ function Vehicles() {
     }
 
     async function handleRestock(id) {
+
+        if (!isAdmin) return;
 
         try {
 
@@ -86,6 +90,8 @@ function Vehicles() {
 
     async function handleUpdate(vehicle) {
 
+        if (!isAdmin) return;
+
         const updatedVehicle = {
             make: prompt("Make", vehicle.make),
             model: prompt("Model", vehicle.model),
@@ -118,6 +124,8 @@ function Vehicles() {
     }
 
     async function handleDelete(id) {
+
+        if (!isAdmin) return;
 
         if (!window.confirm("Delete this vehicle?")) {
             return;
@@ -231,20 +239,24 @@ function Vehicles() {
 
                             <p><strong>Stock:</strong> {vehicle.quantity}</p>
 
-                            <button onClick={() => handleRestock(vehicle.id)}>
-                                Restock
-                            </button>
+                            {isAdmin && (
+                                <>
+                                    <button onClick={() => handleRestock(vehicle.id)}>
+                                        Restock
+                                    </button>
+
+                                    <button onClick={() => handleUpdate(vehicle)}>
+                                        Edit
+                                    </button>
+
+                                    <button onClick={() => handleDelete(vehicle.id)}>
+                                        Delete
+                                    </button>
+                                </>
+                            )}
 
                             <button onClick={() => handlePurchase(vehicle.id)}>
                                 Purchase
-                            </button>
-
-                            <button onClick={() => handleUpdate(vehicle)}>
-                                Edit
-                            </button>
-
-                            <button onClick={() => handleDelete(vehicle.id)}>
-                                Delete
                             </button>
 
                             <hr />
