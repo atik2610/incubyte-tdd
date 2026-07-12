@@ -6,11 +6,7 @@ function getToken() {
 
 export async function getVehicles() {
 
-    const response = await fetch(BASE_URL, {
-        headers: {
-            Authorization: `Bearer ${getToken()}`
-        }
-    });
+    const response = await fetch(BASE_URL);
 
     if (!response.ok) {
         throw new Error(await response.text());
@@ -121,12 +117,7 @@ export async function searchVehicles(search) {
         params.append("maxPrice", search.maxPrice);
 
     const response = await fetch(
-        `${BASE_URL}/search?${params.toString()}`,
-        {
-            headers: {
-                Authorization: `Bearer ${getToken()}`
-            }
-        }
+        `${BASE_URL}/search?${params.toString()}`
     );
 
     if (!response.ok) {
