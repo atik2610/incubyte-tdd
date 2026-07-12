@@ -2,12 +2,30 @@ import { useEffect, useState } from "react";
 import {
     getVehicles,
     deleteVehicle,
-    updateVehicle
+    updateVehicle,
+    purchaseVehicle
 } from "../api/vehicleApi";
 
 function Vehicles() {
 
     const [vehicles, setVehicles] = useState([]);
+
+    async function handlePurchase(id) {
+
+        try {
+
+            const updatedVehicle = await purchaseVehicle(id);
+
+            setVehicles(prev =>
+                prev.map(vehicle =>
+                    vehicle.id === id ? updatedVehicle : vehicle
+                )
+            );
+
+        } catch (err) {
+            alert(err.message);
+        }
+    }
 
     async function handleUpdate(vehicle) {
 
@@ -94,6 +112,10 @@ function Vehicles() {
 
                         <p>Stock : {vehicle.quantity}</p>
 
+                        <button onClick={() => handlePurchase(vehicle.id)}>
+                            Purchase
+                        </button>
+                        
                         <button onClick={() => handleUpdate(vehicle)}>
                             Edit
                         </button>
