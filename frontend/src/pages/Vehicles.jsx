@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
     getVehicles,
+    searchVehicles,
     deleteVehicle,
     updateVehicle,
     purchaseVehicle,
@@ -10,6 +11,44 @@ import {
 function Vehicles() {
 
     const [vehicles, setVehicles] = useState([]);
+
+    const [search, setSearch] = useState({
+        make: "",
+        model: "",
+        category: "",
+        minPrice: "",
+        maxPrice: ""
+    });
+
+    async function loadVehicles() {
+
+        try {
+
+            const data = await getVehicles();
+            setVehicles(data);
+
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
+    useEffect(() => {
+        loadVehicles();
+    }, []);
+
+    async function handleSearch(e) {
+
+        e.preventDefault();
+
+        try {
+
+            const data = await searchVehicles(search);
+            setVehicles(data);
+
+        } catch (err) {
+            alert(err.message);
+        }
+    }
 
     async function handleRestock(id) {
 
@@ -24,7 +63,6 @@ function Vehicles() {
             );
 
         } catch (err) {
-
             alert(err.message);
         }
     }
@@ -69,7 +107,9 @@ function Vehicles() {
             const updated = await updateVehicle(vehicle.id, updatedVehicle);
 
             setVehicles(prev =>
-                prev.map(v => v.id === vehicle.id ? updated : v)
+                prev.map(v =>
+                    v.id === vehicle.id ? updated : v
+                )
             );
 
         } catch (err) {
@@ -87,28 +127,14 @@ function Vehicles() {
 
             await deleteVehicle(id);
 
-            setVehicles(vehicles.filter(vehicle => vehicle.id !== id));
+            setVehicles(prev =>
+                prev.filter(vehicle => vehicle.id !== id)
+            );
 
         } catch (err) {
-
             alert(err.message);
         }
     }
-
-    useEffect(() => {
-
-        async function loadVehicles() {
-            try {
-                const data = await getVehicles();
-                setVehicles(data);
-            } catch (err) {
-                alert(err.message);
-            }
-        }
-
-        loadVehicles();
-
-    }, []);
 
     return (
         <div className="page">
@@ -117,41 +143,116 @@ function Vehicles() {
 
                 <h2>Vehicles</h2>
 
-                {vehicles.map(vehicle => (
+                <form onSubmit={handleSearch} style={{ marginBottom: "20px" }}>
 
-                    <div key={vehicle.id} style={{ marginBottom: "20px" }}>
+                    <input
+                        type="text"
+                        placeholder="Make"
+                        value={search.make}
+                        onChange={(e) =>
+                            setSearch({ ...search, make: e.target.value })
+                        }
+                    />
 
-                        <p>Make : {vehicle.make}</p>
+                    <input
+                        type="text"
+                        placeholder="Model"
+                        value={search.model}
+                        onChange={(e) =>
+                            setSearch({ ...search, model: e.target.value })
+                        }
+                    />
 
-                        <p>Model : {vehicle.model}</p>
-                        
-                        <p>Category : {vehicle.category}</p>
+                    <input
+                        type="text"
+                        placeholder="Category"
+                        value={search.category}
+                        onChange={(e) =>
+                            setSearch({ ...search, category: e.target.value })
+                        }
+                    />
 
-                        <p>Price : ₹{vehicle.price}</p>
+                    <input
+                        type="number"
+                        placeholder="Min Price"
+                        value={search.minPrice}
+                        onChange={(e) =>
+                            setSearch({ ...search, minPrice: e.target.value })
+                        }
+                    />
 
-                        <p>Stock : {vehicle.quantity}</p>
+                    <input
+                        type="number"
+                        placeholder="Max Price"
+                        value={search.maxPrice}
+                        onChange={(e) =>
+                            setSearch({ ...search, maxPrice: e.target.value })
+                        }
+                    />
 
-                        <button onClick={() => handleRestock(vehicle.id)}>
-                            Restock
-                        </button>
+                    <button type="submit">
+                        Search
+                    </button>
 
-                        <button onClick={() => handlePurchase(vehicle.id)}>
-                            Purchase
-                        </button>
-                        
-                        <button onClick={() => handleUpdate(vehicle)}>
-                            Edit
-                        </button>
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setSearch({
+                                make: "",
+                                model: "",
+                                category: "",
+                                minPrice: "",
+                                maxPrice: ""
+                            });
+                            loadVehicles();
+                        }}
+                    >
+                        Show All
+                    </button>
 
-                        <button onClick={() => handleDelete(vehicle.id)}>
-                            Delete
-                        </button>
+                </form>
 
-                        <hr />
+                <hr />
 
-                    </div>
+                {vehicles.length === 0 ? (
+                    <p>No vehicles found.</p>
+                ) : (
+                    vehicles.map(vehicle => (
 
-                ))}
+                        <div key={vehicle.id} style={{ marginBottom: "20px" }}>
+
+                            <p><strong>Make:</strong> {vehicle.make}</p>
+
+                            <p><strong>Model:</strong> {vehicle.model}</p>
+
+                            <p><strong>Category:</strong> {vehicle.category}</p>
+
+                            <p><strong>Price:</strong> ₹{vehicle.price}</p>
+
+                            <p><strong>Stock:</strong> {vehicle.quantity}</p>
+
+                            <button onClick={() => handleRestock(vehicle.id)}>
+                                Restock
+                            </button>
+
+                            <button onClick={() => handlePurchase(vehicle.id)}>
+                                Purchase
+                            </button>
+
+                            <button onClick={() => handleUpdate(vehicle)}>
+                                Edit
+                            </button>
+
+                            <button onClick={() => handleDelete(vehicle.id)}>
+                                Delete
+                            </button>
+
+                            <hr />
+
+                        </div>
+
+                    ))
+                )}
 
             </div>
 

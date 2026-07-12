@@ -100,3 +100,38 @@ export async function restockVehicle(id) {
 
     return response.json();
 }
+
+export async function searchVehicles(search) {
+
+    const params = new URLSearchParams();
+
+    if (search.make)
+        params.append("make", search.make);
+
+    if (search.model)
+        params.append("model", search.model);
+
+    if (search.category)
+        params.append("category", search.category);
+
+    if (search.minPrice)
+        params.append("minPrice", search.minPrice);
+
+    if (search.maxPrice)
+        params.append("maxPrice", search.maxPrice);
+
+    const response = await fetch(
+        `${BASE_URL}/search?${params.toString()}`,
+        {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            }
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error(await response.text());
+    }
+
+    return response.json();
+}
